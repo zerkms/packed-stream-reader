@@ -1,7 +1,10 @@
-// packed-stream-reader.cpp : Defines the entry point for the console application.
-//
+#include <iostream>
+
+#include "zlib.h"
 
 int main(int argc, char** argv)
 {
+    std::cout << zlibVersion();
+
 	return 0;
 }
