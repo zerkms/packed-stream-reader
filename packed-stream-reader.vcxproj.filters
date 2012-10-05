@@ -18,12 +18,24 @@
     <ClCompile Include="packed-stream-reader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="header.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\zlib-1.2.7\include\zlib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="lib\zlib-1.2.7\include\zconf.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="header.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="writer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

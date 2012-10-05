@@ -1,10 +1,12 @@
 #include <iostream>
 
-#include "zlib.h"
+#include "writer.hpp"
 
 int main(int argc, char** argv)
 {
-    std::cout << zlibVersion();
+    psr::Writer writer(64 * 1024);
+
+    writer.Write("tmp/input", "tmp/output", "tmp/output.map");
 
 	return 0;
 }

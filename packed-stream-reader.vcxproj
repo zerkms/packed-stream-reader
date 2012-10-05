@@ -41,7 +41,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>D:\mydocs\projects\c++ learning\packed-stream-reader\lib\zlib-1.2.7;$(LibraryPath)</LibraryPath>
+    <LibraryPath>lib\zlib-1.2.7;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -82,11 +82,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="header.cpp" />
     <ClCompile Include="packed-stream-reader.cpp" />
+    <ClCompile Include="writer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="header.hpp" />
     <ClInclude Include="lib\zlib-1.2.7\include\zconf.h" />
     <ClInclude Include="lib\zlib-1.2.7\include\zlib.h" />
+    <ClInclude Include="writer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
