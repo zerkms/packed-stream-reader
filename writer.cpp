@@ -7,6 +7,17 @@
 
 using namespace psr;
 
+Writer::Writer(size_t block_size)
+    :
+    block_size(block_size),
+    is_open(false),
+    writing_buffer(""),
+    writing_buffer_length(0),
+    header()
+{
+    header.set_block_size(block_size);
+}
+
 Writer::Writer(const std::string& output_filename, const std::string& output_map_filename, size_t block_size)
     :
     output_filename(output_filename),
@@ -17,23 +28,39 @@ Writer::Writer(const std::string& output_filename, const std::string& output_map
     header()
 {
     header.set_block_size(block_size);
+    Open(output_filename, output_map_filename);
+}
 
+void Writer::Open(const std::string& output_filename, const std::string& output_map_filename)
+{
     output.open(output_filename);
     if (!output.good()) {
         throw "the output file is bad";
     }
+
+    is_open = true;
+}
+
+void Writer::Close()
+{
+    Flush(true);
+    WriteHeader();
+    output.close();
+
+    is_open = false;
 }
 
 Writer::~Writer()
 {
-    Flush(true);
-    WriteHeader();
-
-    output.close();
+    Close();
 }
 
 Writer& Writer::Write(const char* src, size_t length)
 {
+    if (!is_open) {
+        throw "the stream isn't opened";
+    }
+
     writing_buffer.append(src, length);
     writing_buffer_length += length;
     
