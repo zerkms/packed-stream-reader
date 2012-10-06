@@ -5,7 +5,8 @@
 
 int main(int argc, char** argv)
 {
-    psr::Writer writer("tmp/output", "tmp/output.map", 64 * 1024);
+    psr::Writer writer(64 * 1024);
+    writer.Open("tmp/output", "tmp/output.map");
 
     std::ifstream input("tmp/input");
     

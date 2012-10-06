@@ -13,7 +13,7 @@ namespace psr {
     private:
         bool is_open;
 
-        std::string output_filename, output_map_filename;
+        std::string output_map_filename;
         std::ofstream output;
         size_t block_size;
         

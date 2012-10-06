@@ -20,7 +20,6 @@ Writer::Writer(size_t block_size)
 
 Writer::Writer(const std::string& output_filename, const std::string& output_map_filename, size_t block_size)
     :
-    output_filename(output_filename),
     output_map_filename(output_map_filename),
     block_size(block_size),
     writing_buffer(""),
@@ -37,6 +36,8 @@ void Writer::Open(const std::string& output_filename, const std::string& output_
     if (!output.good()) {
         throw "the output file is bad";
     }
+
+    this->output_map_filename = output_map_filename;
 
     is_open = true;
 }
