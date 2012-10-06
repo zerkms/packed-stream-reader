@@ -7,56 +7,81 @@
 
 using namespace psr;
 
-Writer::Writer(size_t block_size)
+Writer::Writer(const std::string& output_filename, const std::string& output_map_filename, size_t block_size)
     :
-    block_size(block_size)
+    output_filename(output_filename),
+    output_map_filename(output_map_filename),
+    block_size(block_size),
+    writing_buffer(""),
+    writing_buffer_length(0),
+    header()
 {
-}
-
-void Writer::Write(const std::string& input_filename, const std::string& output_filename, const std::string& output_map_filename)
-{
-    Header header;
     header.set_block_size(block_size);
 
-    std::ifstream input(input_filename);
-
-    if (!input.good()) {
-        throw "the input file is bad";
-    }
-
-    std::ofstream output(output_filename);
-
+    output.open(output_filename);
     if (!output.good()) {
         throw "the output file is bad";
     }
+}
 
-    char *chunk = new char[block_size];
-    Bytef *compressed_chunk = new Bytef[block_size];
+Writer::~Writer()
+{
+    Flush(true);
+    WriteHeader();
 
-    while (!input.eof()) {
-        uLongf compressed_block_size = block_size;
+    output.close();
+}
 
-        input.read(chunk, block_size);
-        compress(compressed_chunk, &compressed_block_size, (Bytef *)chunk, block_size);
-        header.add_block(compressed_block_size);
-        output.write((char *)compressed_chunk, compressed_block_size);
+Writer& Writer::Write(const char* src, size_t length)
+{
+    writing_buffer.append(src, length);
+    writing_buffer_length += length;
+    
+    Flush();
+
+    return *this;
+}
+
+void Writer::Flush(bool force)
+{
+    if (writing_buffer_length >= block_size) {
+        while (writing_buffer_length >= block_size) {
+            header.add_block(Flush(block_size));
+            writing_buffer_length -= block_size;
+        }
     }
 
-    input.close();
-    output.close();
+    if (force && writing_buffer_length > 0) {
+        header.add_block(Flush(writing_buffer_length));
+        writing_buffer_length -= writing_buffer_length;
+    }
+}
 
-    delete[] chunk;
+size_t Writer::Flush(const size_t length)
+{
+    Bytef *compressed_chunk = new Bytef[length];
+
+    uLongf compressed_block_size = length;
+    std::string chunk = writing_buffer.substr(0, compressed_block_size);
+    compress(compressed_chunk, &compressed_block_size, (Bytef *)chunk.c_str(), length);
+
+    output.write((char *)compressed_chunk, compressed_block_size);
+
+    writing_buffer = writing_buffer.substr(length);
+
     delete[] compressed_chunk;
 
-    std::ofstream output_map(output_map_filename);
+    return compressed_block_size;
+}
 
+void Writer::WriteHeader() const
+{
+    std::ofstream output_map(output_map_filename);
     if (!output_map.good()) {
         throw "the output map file is bad";
     }
 
-    std::string map(header.Generate());
-
-    output_map.write(map.c_str(), map.size());
+    output_map << header.Generate();
 
     output_map.close();
 }

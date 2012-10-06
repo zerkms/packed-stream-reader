@@ -4,9 +4,9 @@
 
 int main(int argc, char** argv)
 {
-    psr::Writer writer(64 * 1024);
+    psr::Writer writer("tmp/output", "tmp/output.map", 64 * 1024);
 
-    writer.Write("tmp/input", "tmp/output", "tmp/output.map");
+    writer.Write("tmp/input", 9);
 
 	return 0;
 }
