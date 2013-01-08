@@ -24,6 +24,9 @@
     <ClCompile Include="writer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="reader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="lib\zlib-1.2.7\include\zlib.h">
@@ -36,6 +39,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="writer.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="reader.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

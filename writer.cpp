@@ -109,7 +109,10 @@ void Writer::WriteHeader() const
         throw "the output map file is bad";
     }
 
-    output_map << header.Generate();
+    std::ostream_iterator<data_type> output_map_iterator(output_map);
+    data_vector header(header.Generate());
+
+    std::copy(header.begin(), header.end(), output_map_iterator);
 
     output_map.close();
 }

@@ -54,6 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>./lib/zlib-1.2.7/include</AdditionalIncludeDirectories>
+      <AdditionalOptions>-D_SCL_SECURE_NO_WARNINGS %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -85,12 +86,14 @@
   <ItemGroup>
     <ClCompile Include="header.cpp" />
     <ClCompile Include="packed-stream-reader.cpp" />
+    <ClCompile Include="reader.cpp" />
     <ClCompile Include="writer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="header.hpp" />
     <ClInclude Include="lib\zlib-1.2.7\include\zconf.h" />
     <ClInclude Include="lib\zlib-1.2.7\include\zlib.h" />
+    <ClInclude Include="reader.hpp" />
     <ClInclude Include="writer.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
