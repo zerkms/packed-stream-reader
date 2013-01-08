@@ -73,7 +73,7 @@ data_vector Header::Generate() const
         
         std::copy(
             reinterpret_cast<data_type *>(&block_size),
-            reinterpret_cast<data_type *>(&block_size) + sizeof(blocks_count),
+            reinterpret_cast<data_type *>(&block_size) + sizeof(block_size),
             std::back_inserter(result)
         );
     }
