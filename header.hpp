@@ -6,7 +6,8 @@
 
 namespace psr {
 
-    typedef std::vector<size_t> vector_blocks;
+    typedef size_t vector_block_size_type;
+    typedef std::vector<vector_block_size_type> vector_blocks;
     typedef unsigned char data_type;
     typedef std::vector<data_type> data_vector;
 
@@ -25,7 +26,7 @@ namespace psr {
         data_vector Generate() const;
 
     private:
-        void Parse(std::vector<unsigned char> map_binary);
+        void Parse(const data_vector& map_binary);
     };
 
 }

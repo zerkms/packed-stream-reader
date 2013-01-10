@@ -9,8 +9,8 @@ void test_header();
 
 int main(int argc, char** argv)
 {
-    test_header();
-    return 0;
+    /*test_header();
+    return 0;*/
 
     psr::Writer writer(64 * 1024);
     writer.Open("tmp/output", "tmp/output.map");
