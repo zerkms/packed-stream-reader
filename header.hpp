@@ -20,7 +20,7 @@ namespace psr {
 
     public:
         Header();
-        Header(data_vector map_binary);
+        Header(const data_vector& map_binary);
         void set_block_size(size_t block_size);
         void add_block(size_t length);
         data_vector Generate() const;

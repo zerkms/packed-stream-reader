@@ -11,7 +11,7 @@ Header::Header()
     signature_.push_back('R');
 }
 
-Header::Header(std::vector<unsigned char> map_binary)
+Header::Header(const data_vector& map_binary)
 {
     signature_.push_back('P');
     signature_.push_back('S');
